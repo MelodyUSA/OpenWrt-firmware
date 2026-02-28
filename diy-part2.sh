@@ -9,7 +9,14 @@ curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turbo
 
 # 2. 修改 .config 加入官方源中的套件
 cat >> .config <<EOF
+# 修改根分區大小，建議設為 960 或 1024；# 修改內核分區大小
+CONFIG_TARGET_ROOTFS_PARTSIZE=1024
+CONFIG_TARGET_KERNEL_PARTSIZE=64
+
 # 介面語言：簡體中文
+CONFIG_TARGET_ROOTFS_PARTSIZE=1024
+CONFIG_TARGET_KERNEL_PARTSIZE=64
+
 CONFIG_LUCI_LANG_zh_Hans=y
 CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
 
@@ -25,9 +32,6 @@ CONFIG_PACKAGE_luci-i18n-ttyd-zh-cn=y
 # 代理：OpenClash
 CONFIG_PACKAGE_luci-app-openclash=y
 
-# 代理：Nikki (ImmortalWrt 官方源名稱通常為 luci-app-nikki)
-CONFIG_PACKAGE_luci-app-nikki=y
-
 # 加入 homeproxy/sing-box/Nikki 所需的內核依賴
 CONFIG_PACKAGE_kmod-netlink-diag=y
 CONFIG_PACKAGE_kmod-nft-tproxy=y
@@ -35,13 +39,11 @@ CONFIG_PACKAGE_kmod-tun=y
 CONFIG_PACKAGE_kmod-nft-socket=y
 CONFIG_PACKAGE_kmod-dummy=y
 
-# 確保 Nikki 及其語言包被編譯進韌體
+# 代理：Nikki
 CONFIG_PACKAGE_luci-app-nikki=y
 CONFIG_PACKAGE_luci-i18n-nikki-zh-cn=y
 
-# 如果你還想要 Homeproxy，也順便補上它的依賴（選用）
-CONFIG_PACKAGE_kmod-netlink-diag=y
-# 確保 sing-box 相關組件正確
+# 代理：homeproxy
 CONFIG_PACKAGE_sing-box=y
 CONFIG_PACKAGE_luci-app-homeproxy=y
 CONFIG_PACKAGE_luci-i18n-homeproxy-zh-cn=y
@@ -51,31 +53,45 @@ CONFIG_PACKAGE_dnsmasq=n
 CONFIG_PACKAGE_dnsmasq-full=y
 CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
 
+# AdGuardHome 廣告攔截
+CONFIG_PACKAGE_luci-app-adguardhome=y
+# 網路共用 (SMB/CIFS 掛載)
+CONFIG_PACKAGE_luci-app-cifs-mount=y
+CONFIG_PACKAGE_luci-i18n-cifs-mount-zh-cn=y
+# 實時監控 (Netdata)
+CONFIG_PACKAGE_luci-app-netdata=y
+CONFIG_PACKAGE_luci-i18n-netdata-zh-cn=y
+# SmartDNS
+CONFIG_PACKAGE_luci-app-smartdns=y
+CONFIG_PACKAGE_luci-i18n-smartdns-zh-cn=y
+# UPnP
+CONFIG_PACKAGE_luci-app-upnp=y
+CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y
+# 網路喚醒 (WOL)
+CONFIG_PACKAGE_luci-app-wol=y
+CONFIG_PACKAGE_luci-app-wol-zh-cn=y
+
 # Turbo ACC 網路加速
 CONFIG_PACKAGE_luci-app-turboacc=y
 CONFIG_PACKAGE_luci-i18n-turboacc-zh-cn=y
 
-# 無線驅動 (僅當你有外接 USB 網卡時需要)
+# 無線驅動 (僅當有外接 USB 網卡時需要)
 CONFIG_PACKAGE_kmod-ath10k=y
 CONFIG_PACKAGE_kmod-mt76=y
 
 # 系統管理插件
-CONFIG_PACKAGE_luci-app-advancedplus=y
-CONFIG_PACKAGE_luci-app-fan=y
-CONFIG_PACKAGE_luci-app-fileassistant=y
+# CONFIG_PACKAGE_luci-app-fileassistant=y
 CONFIG_PACKAGE_luci-app-upnp=y
-CONFIG_PACKAGE_luci-app-wizard=y
 
 # 核心工具 (確保 BBR 加速和核心監控)
 CONFIG_PACKAGE_kmod-tcp-bbr=y
 CONFIG_PACKAGE_autocore-arm=y
 CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_nano=y
+
+# 其他核心依賴
+CONFIG_PACKAGE_kmod-fs-cifs=y
+CONFIG_PACKAGE_kmod-ipt-core=y
+CONFIG_PACKAGE_kmod-ip6tables=y
+CONFIG_PACKAGE_kmod-nft-compat=y
 EOF
-
-# 修改根分區大小
-# 建議設為 960 或 1024
-echo "CONFIG_TARGET_ROOTFS_PARTSIZE=1024" >> .config
-
-# 修改內核分區大小
-echo "CONFIG_TARGET_KERNEL_PARTSIZE=64" >> .config
