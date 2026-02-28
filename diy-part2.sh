@@ -72,3 +72,10 @@ CONFIG_PACKAGE_autocore-arm=y
 CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_nano=y
 EOF
+
+# 修改根分區大小
+# 建議設為 960 或 1024
+echo "CONFIG_TARGET_ROOTFS_PARTSIZE=1024" >> .config
+
+# 修改內核分區大小
+echo "CONFIG_TARGET_KERNEL_PARTSIZE=64" >> .config
