@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. 修改預設 IP (推薦，避免與光貓 192.168.1.1 衝突)
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.101/g' package/base-files/files/bin/config_generate
 
 # 2. 修改 .config 加入官方源中的套件
 {
