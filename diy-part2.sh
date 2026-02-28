@@ -3,6 +3,10 @@
 # 1. 修改預設 IP (推薦，避免與光貓 192.168.1.1 衝突)
 sed -i 's/192.168.1.1/192.168.1.101/g' package/base-files/files/bin/config_generate
 
+# 加入 chenmozhijin 的 TurboACC (官方推薦安裝方式)
+# 這會自動下載插件並應用 firewall4 補丁，確保 FullCone NAT 正常工作
+curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
+
 # 2. 修改 .config 加入官方源中的套件
 cat >> .config <<EOF
 # 介面語言：簡體中文
@@ -50,7 +54,6 @@ CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
 # Turbo ACC 網路加速
 CONFIG_PACKAGE_luci-app-turboacc=y
 CONFIG_PACKAGE_luci-i18n-turboacc-zh-cn=y
-CONFIG_PACKAGE_kmod-tcp-bbr=y
 
 # 無線驅動 (僅當你有外接 USB 網卡時需要)
 CONFIG_PACKAGE_kmod-ath10k=y
