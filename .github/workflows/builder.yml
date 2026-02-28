@@ -60,7 +60,7 @@ jobs:
         git clone -b ${{ env.REPO_BRANCH }} --single-branch --depth 1 --filter=blob:none ${{ env.REPO_URL }} openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: DIY1
+    - name: DIY1 & Update Feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
@@ -68,20 +68,19 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
         ./scripts/feeds update -a
 
-    - name: DIY2
+    - name: DIY2 & Install Feeds
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
         ./scripts/feeds install -a
+        chmod +x $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/$DIY_P2_SH
         
     - name: 下载依赖包
       id: package
       run: |
         cd openwrt
-        ./scripts/feeds update -a && ./scripts/feeds install -a
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
@@ -114,9 +113,11 @@ jobs:
       run: |
         echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         cat > release.txt << 'EOF'
-        - 设备: r3s
+        - 设备: NanoPi R3S
         - 源码: ${{ env.REPO_URL }}
-        - 版本: ${{ env.REPO_BRANCH }}
+        - 分支: ${{ env.REPO_BRANCH }}
+        - 管理地址: 192.168.1.101
+        - 包含套件: OpenClash, Nikki, ttyd, Argon Theme
         EOF
         echo "status=success" >> $GITHUB_OUTPUT
 
@@ -137,12 +138,3 @@ jobs:
       with:
         retain_days: 0
         keep_minimum_runs: 2
-
-    - name: 删除旧版本
-      uses: dev-drprasad/delete-older-releases@master
-      if: ${{ steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled() }}
-      with:
-        keep_latest: 2
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
