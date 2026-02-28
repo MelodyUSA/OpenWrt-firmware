@@ -24,6 +24,16 @@ CONFIG_PACKAGE_luci-app-openclash=y
 # 代理：Nikki (ImmortalWrt 官方源名稱通常為 luci-app-nikki)
 CONFIG_PACKAGE_luci-app-nikki=y
 
+# 強制加入 homeproxy/sing-box 所需的內核依賴
+CONFIG_PACKAGE_kmod-netlink-diag=y
+CONFIG_PACKAGE_kmod-nft-tproxy=y
+CONFIG_PACKAGE_kmod-tun=y
+
+# 確保 sing-box 相關組件正確
+CONFIG_PACKAGE_sing-box=y
+CONFIG_PACKAGE_luci-app-homeproxy=y
+CONFIG_PACKAGE_luci-i18n-homeproxy-zh-cn=y
+
 # 關鍵：移除基礎 dnsmasq，改用 dnsmasq-full (否則 OpenClash/Nikki 會報錯)
 CONFIG_PACKAGE_dnsmasq=n
 CONFIG_PACKAGE_dnsmasq-full=y
