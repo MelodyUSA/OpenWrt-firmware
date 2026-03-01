@@ -40,8 +40,8 @@ CONFIG_PACKAGE_kmod-nft-socket=y
 CONFIG_PACKAGE_kmod-dummy=y
 
 # 代理：Nikki
-CONFIG_PACKAGE_luci-app-nikki=y
-CONFIG_PACKAGE_luci-i18n-nikki-zh-cn=y
+# CONFIG_PACKAGE_luci-app-nikki=y
+# CONFIG_PACKAGE_luci-i18n-nikki-zh-cn=y
 
 # 代理：homeproxy
 CONFIG_PACKAGE_sing-box=y
