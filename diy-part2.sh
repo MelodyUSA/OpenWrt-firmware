@@ -53,8 +53,6 @@ CONFIG_PACKAGE_dnsmasq=n
 CONFIG_PACKAGE_dnsmasq-full=y
 CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
 
-# AdGuardHome 廣告攔截
-CONFIG_PACKAGE_luci-app-adguardhome=y
 # 網路共用 (SMB/CIFS 掛載)
 CONFIG_PACKAGE_luci-app-cifs-mount=y
 CONFIG_PACKAGE_luci-i18n-cifs-mount-zh-cn=y
