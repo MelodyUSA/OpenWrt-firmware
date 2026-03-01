@@ -117,7 +117,7 @@ jobs:
         - 源码: ${{ env.REPO_URL }}
         - 分支: ${{ env.REPO_BRANCH }}
         - 管理地址: 192.168.1.101
-        - 包含套件: OpenClash, Nikki, ttyd, Argon Theme
+        - 包含套件: OpenClash, ttyd, Argon Theme, homeproxy, Netdata, SmartDNS, WOL, Turbo ACC, SMB/CIFS 掛載
         EOF
         echo "status=success" >> $GITHUB_OUTPUT
 
