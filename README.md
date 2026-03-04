@@ -6,7 +6,7 @@
 A template for building ImmortalWrt with GitHub Actions
 
 ## 說明
--  `.config` 定義目標硬體是為 Nanopi R3S
+-  `.config` 定義目標硬體為 Nanopi R3S
 -  `diy-part1.sh`：修改 feeds.conf（加入第三方倉庫）。
 -  `diy-part2.sh`：修改配置預設和添加套件（改 IP、換主題、修改`.config`）。
 
