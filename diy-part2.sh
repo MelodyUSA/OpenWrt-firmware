@@ -14,9 +14,6 @@ CONFIG_TARGET_ROOTFS_PARTSIZE=1024
 CONFIG_TARGET_KERNEL_PARTSIZE=64
 
 # 介面語言：簡體中文
-CONFIG_TARGET_ROOTFS_PARTSIZE=1024
-CONFIG_TARGET_KERNEL_PARTSIZE=64
-
 CONFIG_LUCI_LANG_zh_Hans=y
 CONFIG_PACKAGE_luci-i18n-base-zh-cn=y
 
@@ -38,6 +35,11 @@ CONFIG_PACKAGE_kmod-nft-tproxy=y
 CONFIG_PACKAGE_kmod-tun=y
 CONFIG_PACKAGE_kmod-nft-socket=y
 CONFIG_PACKAGE_kmod-dummy=y
+# 其他核心依賴
+CONFIG_PACKAGE_kmod-fs-cifs=y
+CONFIG_PACKAGE_kmod-ipt-core=y
+CONFIG_PACKAGE_kmod-ip6tables=y
+CONFIG_PACKAGE_kmod-nft-compat=y
 
 # 代理：Nikki
 # CONFIG_PACKAGE_luci-app-nikki=y
@@ -87,9 +89,4 @@ CONFIG_PACKAGE_autocore-arm=y
 CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_nano=y
 
-# 其他核心依賴
-CONFIG_PACKAGE_kmod-fs-cifs=y
-CONFIG_PACKAGE_kmod-ipt-core=y
-CONFIG_PACKAGE_kmod-ip6tables=y
-CONFIG_PACKAGE_kmod-nft-compat=y
 EOF
