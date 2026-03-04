@@ -81,7 +81,6 @@ CONFIG_PACKAGE_kmod-mt76=y
 
 # 系統管理插件
 # CONFIG_PACKAGE_luci-app-fileassistant=y
-CONFIG_PACKAGE_luci-app-upnp=y
 
 # 核心工具 (確保 BBR 加速和核心監控)
 CONFIG_PACKAGE_kmod-tcp-bbr=y
